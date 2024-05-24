@@ -26,31 +26,26 @@ function App() {
   }
   
   function handleFocus(index) {
-      setFocusedIndex(index);
-      setSelectedColor(colors[index]);
+    setSelectedColor(colors[index]);
   }
 
   function handleBlur() {
     setSelectedColor({ hex: null, name: null});
   }
 
-  function handleKeyDown(e, index) {
-
-    if (e.key === 'Enter') {
-      setFocusedIndex(0);
-      setSelectedColor(colors[0]);
-    }
+function handleKeyDown(e) {
+    let newIndex = focusedIndex;
 
     if (e.key === 'ArrowRight') {
-        setFocusedIndex(focusedIndex + 1);
-        setSelectedColor(colors[focusedIndex + 1]);
-      }
-  
-  
-    if (e.key === 'ArrowLeft') {
-      setFocusedIndex(focusedIndex - 1);
-      setSelectedColor(colors[focusedIndex - 1]);
-    } 
+        newIndex = focusedIndex + 1;
+    } else if (e.key === 'ArrowLeft') {
+        newIndex = focusedIndex - 1;
+    }
+
+    if (newIndex < 0 || newIndex >= colors.length) return;
+
+    setFocusedIndex(newIndex);
+    setSelectedColor(colors[newIndex]);
 }
 
   
